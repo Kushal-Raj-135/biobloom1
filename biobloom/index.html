@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoFarm Assistant - Sustainable Farming Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    </head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="logo.png" alt="EcoFarm Logo" class="logoo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#crop-rotation-tool">Crop Rotation</a></li>
+                    <li><a href="https://biofuel-one.vercel.app/" target="_blank">Biofuel</a></li>
+                    <li><a href="#info-section">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Sustainable Farming for Cleaner Air</h2>
+                    <p>Harness the power of AI to make farming smarter and greener.
+                        Get real-time insights to reduce pollution and boost crop yields.
+                        Optimize resources naturally while protecting the environment.
+                        Sustainable agriculture starts with smart decisions!.</p>
+                        <button class="custom-btn" id="get-started-btn">Get Started</button>
+                </div>
+                <div class="hero-image">
+                    <img src="sus.jpg" alt="Sustainable Farming">
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2 class="section-title">Our Features</h2>
+                <div class="feature-cards">
+                    <div class="feature-card">
+                        <div class="feature-icon">🌱</div>
+                        <h3>Smart Crop Rotation</h3>
+                        <p>AI-powered recommendations for optimal crop rotation to reduce residue burning and improve soil health.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🍃</div>
+                        <h3>Organic Alternatives</h3>
+                        <p>Discover natural fertilization techniques that reduce air pollution from chemical fertilizers.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>AQI-Based Alerts</h3>
+                        <p>Get real-time alerts for the best times to perform farming activities based on air quality.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tool-section" id="crop-rotation-tool">
+            <div class="container">
+                <h2 class="section-title">Crop Rotation Assistant</h2>
+                <div class="tool-container">
+                    <div class="input-section">
+                        <h3>Enter Your Farm Details</h3>
+                        <form id="crop-form">
+                            <div class="form-group">
+                                <label for="previous-crop">Select Your Crop:</label>
+                                <select id="previous-crop" required onchange="autoFillDetails()">
+                                    <option value="">Select a crop</option>
+                                    <option value="rice">Rice</option>
+                                    <option value="wheat">Wheat</option>
+                                    <option value="cotton">Cotton</option>
+                                    <option value="sugarcane">Sugarcane</option>
+                                    <option value="pulses">Pulses (Dal)</option>
+                                    <option value="maize">Maize</option>
+                                    <option value="soybean">Soybean</option>
+                                    <option value="groundnut">Groundnut</option>
+                                    <option value="mustard">Mustard</option>
+                                    <option value="jute">Jute</option>
+                                    <option value="tea">Tea</option>
+                                    <option value="coffee">Coffee</option>
+                                    <option value="spices">Spices</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="soil-type">Soil Type:</label>
+                                <select id="soil-type" required>
+                                    <option value="">Select soil type</option>
+                                    <option value="clay">Clay</option>
+                                    <option value="sandy">Sandy</option>
+                                    <option value="loamy">Loamy</option>
+                                    <option value="silty">Silty</option>
+                                    <option value="peaty">Peaty</option>
+                                </select>
+                                <small class="auto-fill-note">This will be auto-filled based on your crop selection, but you can change it if needed.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="region">Region/Climate:</label>
+                                <select id="region" required>
+                                    <option value="">Select region</option>
+                                    <option value="tropical">Tropical</option>
+                                    <option value="subtropical">Subtropical</option>
+                                    <option value="temperate">Temperate</option>
+                                    <option value="arid">Arid</option>
+                                    <option value="mediterranean">Mediterranean</option>
+                                </select>
+                                <small class="auto-fill-note">This will be auto-filled based on your crop selection, but you can change it if needed.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="farm-size">Farm Size (acres):</label>
+                                <input type="number" id="farm-size" min="1" required>
+                            </div>
+                            <button type="submit" class="custom-btn">Get Recommendations</button>
+                        </form>
+                    </div>
+                    <div class="results-section" id="results-container">
+                        <h3>Your Recommendations</h3>
+                        <div class="results-placeholder">
+                            <p>Fill out the form to get personalized recommendations for your farm.</p>
+                        </div>
+                        <div class="results-content" style="display: none;">
+                            <div class="recommendation-card">
+                                <h4>Recommended Next Crop</h4>
+                                <div id="next-crop-recommendation"></div>
+                            </div>
+                            <div class="recommendation-card">
+                                <h4>Organic Fertilizer Alternatives</h4>
+                                <div id="fertilizer-recommendation"></div>
+                            </div>
+                            <div class="recommendation-card">
+                                <h4>AQI-Based Activity Schedule</h4>
+                                <div id="aqi-recommendation"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section" id="info-section">
+            <div class="container">
+                <h2 class="section-title">Crop Rotation & Air Quality: A Sustainable Solution</h2>
+                <div class="info-grid">
+                    <div class="info-card impact">
+                        <div class="info-icon">🌱</div>
+                        <h3>The Impact</h3>
+                        <p>Traditional farming practices like crop residue burning contribute to 30-40% of air pollution in agricultural regions. Our smart crop rotation system helps farmers break this cycle while improving their yields.</p>
+                    </div>
+                    <div class="info-card solution">
+                        <div class="info-icon">💡</div>
+                        <h3>Our Solution</h3>
+                        <p>By implementing scientific crop rotation, we help reduce the need for residue burning by up to 80%. Different crops use different nutrients and leave behind beneficial residues that naturally enrich the soil.</p>
+                    </div>
+                    <div class="info-card benefits">
+                        <div class="info-icon">📈</div>
+                        <h3>Key Benefits</h3>
+                        <ul>
+                            <li>Reduces air pollution from crop burning</li>
+                            <li>Improves soil health naturally</li>
+                            <li>Increases crop yield by 20-30%</li>
+                            <li>Reduces chemical fertilizer usage</li>
+                        </ul>
+                    </div>
+                    <div class="info-card science">
+                        <div class="info-icon">🔬</div>
+                        <h3>The Science</h3>
+                        <p>Our AI-powered system analyzes soil type, climate, and previous crops to recommend optimal rotation patterns. This scientific approach ensures both environmental and economic benefits for farmers.</p>
+                    </div>
+                    <div class="info-card aqi-management">
+                        <div class="info-icon">💨</div>
+                        <h3>AQI Management</h3>
+                        <ul>
+                            <li>Reduces stubble burning by providing alternative crop cycles</li>
+                            <li>Different root systems help maintain soil structure, reducing dust</li>
+                            <li>Green cover between rotations prevents soil erosion and air pollution</li>
+                            <li>Natural pest control reduces the need for chemical sprays</li>
+                            <li>Improved soil health decreases dependence on activities that affect air quality</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="info-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">80%</span>
+                        <span class="stat-label">Reduction in Crop Burning</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">30%</span>
+                        <span class="stat-label">Increase in Soil Fertility</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">25%</span>
+                        <span class="stat-label">Higher Crop Yields</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">40%</span>
+                        <span class="stat-label">Better Air Quality</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="aqi-comparison">
+            <div class="container">
+                <h2 class="section-title">AQI Impact Analysis</h2>
+                <div class="graph-container">
+                    <canvas id="aqiComparisonChart"></canvas>
+                </div>
+                <div class="graph-legend">
+                    <div class="legend-item">
+                        <span class="legend-color" style="background: rgba(255, 99, 132, 0.5);"></span>
+                        <span>Without Crop Rotation</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background: rgba(75, 192, 192, 0.5);"></span>
+                        <span>With Crop Rotation</span>
+                    </div>
+                </div>
+                <div class="aqi-info-cards">
+                    <div class="aqi-info-card">
+                        <h4>Understanding the Data</h4>
+                        <p>This graph shows monthly AQI levels comparing traditional farming vs. crop rotation practices. Lower AQI values indicate better air quality, demonstrating how crop rotation reduces air pollution through sustainable practices.</p>
+                    </div>
+                    <div class="aqi-info-card">
+                        <h4>Peak Seasons</h4>
+                        <p>Notice the higher AQI levels during October-November (harvest season) without crop rotation due to stubble burning. Crop rotation methods show significantly lower peaks during these critical periods.</p>
+                    </div>
+                    <div class="aqi-info-card">
+                        <h4>Environmental Impact</h4>
+                        <p>Areas practicing crop rotation show up to 40% reduction in average AQI levels, contributing to cleaner air and healthier communities. This improvement is most notable during traditional burning seasons.</p>
+                    </div>
+                    <div class="aqi-info-card">
+                        <h4>Health Benefits</h4>
+                        <p>The reduced AQI levels through crop rotation mean fewer respiratory issues, better visibility, and improved overall public health in farming communities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="aqi-monitor">
+            <div class="container">
+                <h2 class="section-title">Current Air Quality Index</h2>
+                <div class="aqi-container">
+                    <div class="aqi-gauge">
+                        <div class="gauge-value" id="aqi-value">
+                            <span id="aqi-number">--</span>
+                            <span class="aqi-label">AQI</span>
+                        </div>
+                        <div class="gauge-status" id="aqi-status">Loading...</div>
+                    </div>
+                    <div class="aqi-info">
+                        <h3>Your Activity</h3>
+                        <ul id="aqi-activities">
+                            <li>Based on current AQI, it's best to water crops early morning or evening</li>
+                            <li>Avoid burning crop residue to maintain air quality</li>
+                            <li>Consider indoor seeding activities during high AQI periods</li>
+                            <li>Use organic mulching techniques to reduce dust</li>
+                            <li>Plan harvesting activities during lower AQI hours</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="logo.png" alt="EcoFarm Logo">
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact" id="contact">
+                    <h4>Contact Us</h4>
+                    <p>Email: info@biobloom.in</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+    
+                    <!-- Social Media Icons -->
+                    <div class="social-icons">
+                        <a href="https://instagram.com" target="_blank" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" class="social-icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 EcoFarm Assistant. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Font Awesome (Required for Icons) -->
+    <script src="https://kit.fontawesome.com/bfc8e7c08a.js" crossorigin="anonymous"></script>
+    <script type="module" src="config.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
+
